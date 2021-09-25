@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace draw
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        Graphics Graph;
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            Graph = this.CreateGraphics();
+            this.Refresh();
+            for (int yi = 0; yi <= e.Y; yi += 10)
+            {
+                Graph.DrawLine(System.Drawing.Pens.Blue, 0, yi, e.X, yi);
+                for (int i = 0; i < 10000000; i++) { int j = yi; }            
+            }
+            for (int yi = e.Y; yi <= this.Height; yi += 10) 
+            {
+                Graph.DrawLine(System.Drawing.Pens.Blue,e.X, yi, this.Width, yi);
+                for (int i = 0; i < 10000000; i++) { int j = yi; }
+
+            }
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            Graph = this.CreateGraphics();
+            
+            for (int xi = 0; xi <= this.Width; xi += 10)
+            {
+                Graph.DrawLine(System.Drawing.Pens.PaleGreen, xi,0,xi, e.Y);
+                for (int i = 0; i < 10000000; i++) { int j = xi; }
+            }
+            for (int xi = 0; xi <= e.X; xi += 10)
+            {
+                Graph.DrawLine(System.Drawing.Pens.PaleGreen, xi, e.Y, xi, this.Height);
+                for (int i = 0; i < 10000000; i++) { int j = xi; }
+
+            }
+
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            pageSetupDialog1.Document = printDocument1;
+            try
+            {
+                if (pageSetupDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    printDialog1.Document = printDocument1;
+                    if (printDialog1.ShowDialog() == DialogResult.OK) printDocument1.Print();
+                    else return;
+                }
+                else return;
+                OpenFileDialog OFD = new OpenFileDialog();
+                OFD.Filter = "OXPSI*.oxps";
+                if (OFD.ShowDialog() == DialogResult.OK) System.Diagnostics.Process.Start(OFD.FileName);
+
+            }
+            catch (Exception QQ) 
+            {
+                MessageBox.Show(QQ.ToString(), "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            for (int yi = 0; yi <= 600; yi += 10) e.Graphics.DrawLine(System.Drawing.Pens.Blue, 0, yi, 420, yi);
+            for (int yi = 600; yi <= 1200; yi += 10) e.Graphics.DrawLine(Pens.Green, 420, yi, 840, yi);
+            for (int xi = 420; xi <= 840; xi += 10) e.Graphics.DrawLine(Pens.Red, xi, 0, xi,600);
+            for (int xi = 0;xi <= 420; xi += 10) e.Graphics.DrawLine(Pens.HotPink,xi,600,xi,1200);
+            Rectangle Area = new Rectangle(320, 500, 200, 200);
+            e.Graphics.FillRectangle(Brushes.LemonChiffon, Area);
+            e.Graphics.DrawEllipse(Pens.DarkKhaki, Area);
+            FontDialog FD = new FontDialog();
+            if (FD.ShowDialog() == DialogResult.OK) 
+            {
+                e.Graphics.DrawString("明新科大資管系", FD.Font, Brushes.Coral, 10, 600);
+            
+            
+            
+            }
+        }
+    }
+}
