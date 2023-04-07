@@ -1,0 +1,17 @@
+public class Mytime {
+	public int T;
+	public int M;
+	public int S;
+	
+	public Mytime(int a ,int b,int c) 
+	{
+		 T=a;
+		 M=b;
+		 S=c;
+		
+	}
+
+	public Mytime() {
+		// TODO Auto-generated constructor stub
+	}
+}
