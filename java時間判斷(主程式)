@@ -1,0 +1,36 @@
+import java.util.Random;
+
+public class ex2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Mytime a1=new Mytime();
+		a1.T=23;
+		a1.M=59;
+		a1.S=59;
+		String GM1=null;
+		String GM2=null;
+		Mytime a2=new Mytime();
+		Random rn = new Random();
+		a2=new Mytime(rn.nextInt(23),rn.nextInt(59),rn.nextInt(59));
+		if(a1.T>=12) 
+		{
+			GM1="下午";
+			
+		}
+		else {GM1="早上";}
+		if(a2.T>=12) 
+		{
+			GM2="下午";
+			
+			
+		}
+		else {GM2="早上";}
+		System.out.println("第一題"+"時:"+a1.T+"分:"+a1.M+"秒:"+a1.S+GM1);
+		System.out.println("總秒數:"+((a1.T*60)*60+(a1.M*60)+a1.S));
+		System.out.println("第二題"+"時:"+a2.T+"分:"+a2.M+"秒:"+a2.S+GM2);
+		System.out.println("總秒數:"+((a2.T*60)*60+(a2.M*60)+a2.S));
+		
+	}
+
+}
