@@ -1,0 +1,45 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class MainProgram
+    {
+        static void Main()
+        {
+            try
+            {
+                
+                Console.Write("請輸入要跑多少組數字:");
+                int Number = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+
+
+                for (int i = 1; i <= Number; i++)
+                {
+                    Console.WriteLine(Fibonacci(i).ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Main();
+            }
+        }
+        static int Fibonacci(int number)
+        {
+            if (number == 0)
+            {
+                return 0;
+            }
+            if (number == 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return Fibonacci(number - 1) + Fibonacci(number - 2);
+            }
+        }
+
+       
+    }
+}
